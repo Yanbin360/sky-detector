@@ -48,7 +48,7 @@ bool SkyAreaDetector::load_image(const std::string &image_file_path) {
         return false;
     }
 
-    _src_img = cv::imread(image_file_path, CV_LOAD_IMAGE_UNCHANGED);
+    _src_img = cv::imread(image_file_path, IMREAD_UNCHANGED);
 
 //    cv::resize(_src_img, _src_img, cv::Size(_src_img.size[1] * 4, _src_img.size[0] * 4));
 
@@ -349,7 +349,7 @@ std::vector<int> SkyAreaDetector::refine_border(const std::vector<int> &border,
     sky_image_non_zero.convertTo(sky_image_float, CV_32FC1);
     cv::Mat labels;
     cv::kmeans(sky_image_float, 2, labels,
-               cv::TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 10, 1.0),
+               cv::TermCriteria(cv::TermCriteria::EPS + cv::TermCriteria::MAX_ITER, 10, 1.0),
                10, cv::KMEANS_RANDOM_CENTERS);
     int label_1_nums = cv::countNonZero(labels);
     int label_0_nums = labels.rows - label_1_nums;
@@ -379,21 +379,21 @@ std::vector<int> SkyAreaDetector::refine_border(const std::vector<int> &border,
     cv::Mat sky_covar_1;
     cv::Mat sky_mean_1;
     cv::calcCovarMatrix(sky_label_1_image, sky_covar_1,
-                        sky_mean_1, CV_COVAR_ROWS | CV_COVAR_NORMAL | CV_COVAR_SCALE);
+                        sky_mean_1, cv::COVAR_ROWS | cv::COVAR_NORMAL | cv::COVAR_SCALE);
     cv::Mat ic_s1;
     cv::invert(sky_covar_1, ic_s1, cv::DECOMP_SVD);
 
     cv::Mat sky_covar_0;
     cv::Mat sky_mean_0;
     cv::calcCovarMatrix(sky_label_0_image, sky_covar_0,
-                        sky_mean_0, CV_COVAR_ROWS | CV_COVAR_NORMAL | CV_COVAR_SCALE);
+                        sky_mean_0, cv::COVAR_ROWS | cv::COVAR_NORMAL | cv::COVAR_SCALE);
     cv::Mat ic_s0;
     cv::invert(sky_covar_0, ic_s0, cv::DECOMP_SVD);
 
     cv::Mat ground_covar;
     cv::Mat ground_mean;
     cv::calcCovarMatrix(ground_image_non_zero, ground_covar,
-                        ground_mean, CV_COVAR_ROWS | CV_COVAR_NORMAL | CV_COVAR_SCALE);
+                        ground_mean, cv::COVAR_ROWS | cv::COVAR_NORMAL | cv::COVAR_SCALE);
     cv::Mat ic_g;
     cv::invert(ground_covar, ic_g, cv::DECOMP_SVD);
 
