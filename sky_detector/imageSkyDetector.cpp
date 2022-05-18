@@ -517,7 +517,7 @@ double SkyAreaDetector::calculate_sky_energy(const std::vector<int> &border,
     cv::Mat sky_eig_vec;
     cv::Mat sky_eig_val;
     cv::calcCovarMatrix(sky_image_non_zero, sky_covar,
-                        sky_mean, CV_COVAR_ROWS | CV_COVAR_SCALE | CV_COVAR_NORMAL);
+                        sky_mean, cv::COVAR_ROWS | cv::COVAR_SCALE | cv::COVAR_NORMAL);
     cv::eigen(sky_covar, sky_eig_val, sky_eig_vec);
 
     int para = 2; // 论文原始参数
