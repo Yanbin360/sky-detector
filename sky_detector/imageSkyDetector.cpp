@@ -48,7 +48,7 @@ bool SkyAreaDetector::load_image(const std::string &image_file_path) {
         return false;
     }
 
-    _src_img = cv::imread(image_file_path, IMREAD_UNCHANGED);
+    _src_img = cv::imread(image_file_path, cv::IMREAD_UNCHANGED);
 
 //    cv::resize(_src_img, _src_img, cv::Size(_src_img.size[1] * 4, _src_img.size[0] * 4));
 
@@ -509,7 +509,7 @@ double SkyAreaDetector::calculate_sky_energy(const std::vector<int> &border,
     cv::Mat ground_eig_vec;
     cv::Mat ground_eig_val;
     cv::calcCovarMatrix(ground_image_non_zero, ground_covar,
-                        ground_mean, CV_COVAR_ROWS | CV_COVAR_NORMAL | CV_COVAR_SCALE);
+                        ground_mean, cv::COVAR_ROWS | cv::COVAR_NORMAL | cv::COVAR_SCALE);
     cv::eigen(ground_covar, ground_eig_val, ground_eig_vec);
 
     cv::Mat sky_covar;
