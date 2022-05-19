@@ -234,6 +234,7 @@ std::vector<int> SkyAreaDetector::extract_border_optimal(const cv::Mat &src_imag
     std::vector<int> border_opt;
     double jn_max = 0.0;
 
+    #pragma omp parallel for
     for (int k = 1; k < n + 1; k++) {
         double t = f_thres_sky_min + (std::floor((f_thres_sky_max - f_thres_sky_min) / n) - 1) * (k - 1);
 
