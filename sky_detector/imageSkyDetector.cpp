@@ -520,7 +520,7 @@ double SkyAreaDetector::calculate_sky_energy(const std::vector<int> &border,
                         sky_mean, cv::COVAR_ROWS | cv::COVAR_SCALE | cv::COVAR_NORMAL);
     cv::eigen(sky_covar, sky_eig_val, sky_eig_vec);
 
-    int para = 3; // 论文原始参数
+    int para = 1; // 论文原始参数
     double ground_det = cv::determinant(ground_covar);
     double sky_det = cv::determinant(sky_covar);
     double ground_eig_det = cv::determinant(ground_eig_vec);
